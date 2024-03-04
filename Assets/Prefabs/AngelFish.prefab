@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5191024078508618723}
   - component: {fileID: 5191024078508618724}
-  - component: {fileID: 1177479463460475177}
   - component: {fileID: -125563694869991041}
-  - component: {fileID: -888905126024633533}
   - component: {fileID: -2571380403870306375}
+  - component: {fileID: -4350407936264956780}
   m_Layer: 0
   m_Name: AngelFish
   m_TagString: Untagged
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5191024078508618725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -345.20337, y: 140.74629, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -88,22 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1177479463460475177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191024078508618725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b48b589244f7d488015b9410451324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goldfish: {fileID: 111866714764402067, guid: 6ec550b6b7453534293b6f68e5950e50, type: 3}
-  betafish: {fileID: 2533559826551403650, guid: 79b18b681479b054e983c7eab7e4be92, type: 3}
-  angelfish: {fileID: 5191024078508618725}
-  fishProperties: {fileID: 0}
 --- !u!50 &-125563694869991041
 Rigidbody2D:
   serializedVersion: 4
@@ -119,21 +102,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!45 &-888905126024633533
-Skybox:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191024078508618725}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 0}
 --- !u!61 &-2571380403870306375
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -160,3 +134,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-4350407936264956780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191024078508618725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b48b589244f7d488015b9410451324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishProperties: {fileID: 0}
+  properties: {fileID: 0}
+  goldfish: {fileID: 111866714764402067, guid: e0e9c4c6bb0e8284f894286d7806f4af, type: 3}
+  betafish: {fileID: 2533559826551403650, guid: 79b18b681479b054e983c7eab7e4be92, type: 3}
+  angelfish: {fileID: 5191024078508618725}

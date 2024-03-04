@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 111866714764402079}
   - component: {fileID: 111866714764402064}
-  - component: {fileID: 111866714764402066}
   - component: {fileID: -225927901866768195}
   - component: {fileID: 8292431316511671207}
+  - component: {fileID: 7701518073361416812}
+  - component: {fileID: 409876411698097739}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.81960785, g: 0.14675301, b: 0, a: 1}
+  m_Color: {r: 0.81960785, g: 0, b: 0.10363829, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,22 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &111866714764402066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111866714764402067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b48b589244f7d488015b9410451324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goldfish: {fileID: 111866714764402067}
-  betafish: {fileID: 2533559826551403650, guid: 79b18b681479b054e983c7eab7e4be92, type: 3}
-  angelfish: {fileID: 5191024078508618725, guid: ca80b70d7362b3e4791ca52eba57ec7a, type: 3}
-  fishProperties: {fileID: 0}
 --- !u!50 &-225927901866768195
 Rigidbody2D:
   serializedVersion: 4
@@ -118,7 +103,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -150,3 +135,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7701518073361416812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111866714764402067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b48b589244f7d488015b9410451324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalFishCount: 0
+  goldfish: {fileID: 111866714764402067, guid: e0e9c4c6bb0e8284f894286d7806f4af, type: 3}
+  betafish: {fileID: 2533559826551403650, guid: 79b18b681479b054e983c7eab7e4be92, type: 3}
+  angelfish: {fileID: 5191024078508618725, guid: ca80b70d7362b3e4791ca52eba57ec7a, type: 3}
+--- !u!114 &409876411698097739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111866714764402067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1c0e57cad753f43a17e6274da30c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
