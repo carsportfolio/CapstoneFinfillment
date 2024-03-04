@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2533559826551403648}
   - component: {fileID: 2533559826551403649}
-  - component: {fileID: 2092989634687375702}
   - component: {fileID: -6347770946430014361}
   - component: {fileID: 2663236846884643690}
+  - component: {fileID: -114209898189400818}
   m_Layer: 0
   m_Name: Betafish
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2533559826551403650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -345.20337, y: 140.74629, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,22 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2092989634687375702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2533559826551403650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b48b589244f7d488015b9410451324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goldfish: {fileID: 111866714764402067, guid: 6ec550b6b7453534293b6f68e5950e50, type: 3}
-  betafish: {fileID: 2533559826551403650}
-  angelfish: {fileID: 5191024078508618725, guid: ca80b70d7362b3e4791ca52eba57ec7a, type: 3}
-  fishProperties: {fileID: 0}
 --- !u!50 &-6347770946430014361
 Rigidbody2D:
   serializedVersion: 4
@@ -118,7 +102,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -150,3 +134,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-114209898189400818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533559826551403650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b48b589244f7d488015b9410451324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishProperties: {fileID: 0}
+  properties: {fileID: 0}
+  goldfish: {fileID: 111866714764402067, guid: e0e9c4c6bb0e8284f894286d7806f4af, type: 3}
+  betafish: {fileID: 2533559826551403650}
+  angelfish: {fileID: 5191024078508618725, guid: ca80b70d7362b3e4791ca52eba57ec7a, type: 3}

@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - parentfish
+  - Add2
+  - Add3
+  - Add4
+  - Add2T
+  - Add3T
+  - Add4T
   layers:
   - Default
   - TransparentFX
