@@ -11,6 +11,10 @@ TagManager:
   - Add2T
   - Add3T
   - Add4T
+  - parentachievement
+  - parentstore
+  - fishprefabparent
+  - parentgoals
   layers:
   - Default
   - TransparentFX

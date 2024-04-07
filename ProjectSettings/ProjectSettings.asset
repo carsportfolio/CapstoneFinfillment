@@ -657,11 +657,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 2969c21d-c886-4d04-887f-5732a3b38894
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: CapstoneFinfillment
+  organizationId: caho2973
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

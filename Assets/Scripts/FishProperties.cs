@@ -19,6 +19,7 @@ public class FishProperties : MonoBehaviour
     }
     public string Name { get; set; }
     public string Goal { get; set; } // string typed from user of their goal
+    public string GoalType { get ; set; }
     public int StreakTracked { get; set; } // per week how many days of the week we track out of it, non-concurrent days
     public int TotalDaysTracked { get; set; } // total tracked EVER - nice for achievement eventually
     public string AchievementsType { get; set; } // of the three categories

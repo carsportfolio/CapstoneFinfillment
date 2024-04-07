@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -125563694869991041}
   - component: {fileID: -2571380403870306375}
   - component: {fileID: -4350407936264956780}
+  - component: {fileID: -759852878045499959}
   m_Layer: 0
   m_Name: AngelFish
   m_TagString: Untagged
@@ -146,8 +147,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b48b589244f7d488015b9410451324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishProperties: {fileID: 0}
-  properties: {fileID: 0}
+  totalFishCount: 0
+  fishPrefabHolder: {fileID: 5191024078508618725}
   goldfish: {fileID: 111866714764402067, guid: e0e9c4c6bb0e8284f894286d7806f4af, type: 3}
   betafish: {fileID: 2533559826551403650, guid: 79b18b681479b054e983c7eab7e4be92, type: 3}
   angelfish: {fileID: 5191024078508618725}
+  sceneFunctions: {fileID: 0}
+  fishListPrefabHolder: {fileID: 0}
+  fishSpacing: 30
+--- !u!114 &-759852878045499959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191024078508618725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1c0e57cad753f43a17e6274da30c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
