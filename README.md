@@ -12,5 +12,7 @@
 
 ![image](https://github.com/carsportfolio/CapstoneFinfillment/assets/143631344/dd8d64d8-5a63-4f1f-b53b-0d2cb9bdcb0b)
 
-![image](https://github.com/carsportfolio/CapstoneFinfillment/assets/143631344/d8f919c3-194d-40bc-926f-969683eb6756)
+<a href="https://carscollege.wixsite.com/finfillment-progress">
+  <img src="https://github.com/carsportfolio/CapstoneFinfillment/assets/143631344/d8f919c3-194d-40bc-926f-969683eb6756" />
+</a>
 
