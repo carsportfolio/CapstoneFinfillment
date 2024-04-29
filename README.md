@@ -7,7 +7,6 @@
 ![image](https://github.com/carsportfolio/CapstoneFinfillment/assets/143631344/44eccccf-2c78-4a31-b60e-e57de7c103ab)
 
 
-
 ![image](https://github.com/carsportfolio/CapstoneFinfillment/assets/143631344/2e436366-4ef2-40de-a777-ef39b78b1cfd)
 ![image](https://github.com/carsportfolio/CapstoneFinfillment/assets/143631344/f516f015-12ef-4e1d-8a2e-9ff7956d6299)
 
