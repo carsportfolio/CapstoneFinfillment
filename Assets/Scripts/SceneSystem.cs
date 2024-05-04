@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 //This script handles the "scenes" the viewer can interact with. Hides and shows a lot of the interactivity based on conditions.
 public class SceneSystem : MonoBehaviour
@@ -89,9 +90,44 @@ public class SceneSystem : MonoBehaviour
     public int money;
     [SerializeField] public Button trackButton;
     private Boolean isButtonListenerAdded = false;
+    //private const string boolKey = "isGameTrue";
+    private string filePath;
+
+    [System.Serializable]
+    public class MyData
+    {
+        public bool myGame;
+    }
+
+    void OnApplicationQuit()
+    {
+        SaveData();
+    }
 
     void Start()
     {
+        Screen.SetResolution(250, 500, true);
+        Screen.fullScreen = false;
+        //PlayerPrefs.DeleteAll();
+
+        filePath = Application.persistentDataPath + "/SystemData.json";
+
+        if (File.Exists(filePath))
+        {
+            Debug.Log("SystemData.json found. Loading data.");
+            LoadData();
+        }
+        else
+        {
+            doesGameExist = false;
+
+            homeScreenGroup.SetActive(true);
+            homeScreenStartButton.SetActive(true);
+            homeScreenReturningButton.SetActive(false);
+        }
+
+        //_____________
+
         storeHolder = FindObjectOfType<StoreBehavior>();
 
         storeBuyButton.gameObject.SetActive(false);
@@ -103,9 +139,6 @@ public class SceneSystem : MonoBehaviour
         fishListText.gameObject.SetActive(false);
         fishListBackground.gameObject.SetActive(false);
         finfillmentListOfFish.SetActive(false);
-        
-        homeScreenGroup.SetActive(true);
-        homeScreenReturningButton.SetActive(false);
 
         //finfillmentScreenGroup.SetActive(false);
         finfillmentScreenText.SetActive(false);
@@ -173,27 +206,21 @@ public class SceneSystem : MonoBehaviour
         finfillmentGoals.SetActive(false);
         fishGoalsGroup.SetActive(false);
         fishGoalsHolder.SetActive(false);
-    }
-
-    void Update()
-    {
-        if(doesGameExist == true)
-        {
-            homeScreenStartButton.SetActive(false);
-            homeScreenReturningButton.SetActive(true);
-
-            timeHolder = FindObjectOfType<TimeSystem>();
-        }
         
         storeMoneyText.text = "Money: " + money;
     }
 
     public void StartToReturningButton() 
     {
-        doesGameExist = true;
         Debug.Log("game now exists"); // after tutorial completion there will be a variable saved to make sure you never see the beginning screen with the ability to do the tutorial again
 
-        // save and load code
+        filePath = Application.persistentDataPath + "/SystemData.json";
+
+        doesGameExist = true;
+
+        SaveData();
+
+        Debug.Log("Boolean variable saved to JSON file.");
     }
 
     public void HomeToTutorial() //home (start) to tutorial
@@ -207,6 +234,9 @@ public class SceneSystem : MonoBehaviour
     public void HomeToFinfillment() // home (returning) to gameplay
     {
         homeScreenGroup.SetActive(false);
+        homeScreenReturningButton.SetActive(false);
+        homeScreenStartButton.SetActive(false);
+
         finfillmentScreenGroup.SetActive(true);
         foreach (Transform child in finfillmentScreenGroup.transform)
         {
@@ -845,22 +875,28 @@ public class SceneSystem : MonoBehaviour
         }
     }
 
-    public void InfoPopUpAchievementButton(AchievementSelectionBehavior.Achievement item, string name, int reward, string description)
+    public void InfoPopUpAchievementButton(AchievementSelectionBehavior.Achievement item, string name, int reward, string description, AchievementSelectionBehavior.Achievement.AchievementCategoryWithin achieve)
     {
         infoGroup.SetActive(true);
         infoGroupText.enabled = true;
         infoGroupX.SetActive(true);
         infoGroupNext.gameObject.SetActive(false);
 
-        storeBuyButton.gameObject.SetActive(true);
+        storeBuyButton.gameObject.SetActive(false);
 
-        //if (!isButtonListenerAdded) // allows the program to only apply one listener since it automatically wants to apply one for every button
-        //{
-            //storeBuyButton.onClick.AddListener(() => BuyFunction(price));
-            //isButtonListenerAdded = true;
-        //}
+        infoGroupText.text = "            \n" + name + "\n" + "Category: " + achieve + "\n" + "\nReward: $" + reward + "\n" + description;
+    }
 
-        infoGroupText.text = "            " + name + "\nReward: $" + reward + "\n" + description;
+    public void InfoPopUpAchievementButtonCompleted(AchievementSelectionBehavior.Achievement item, string name, int reward, string description)
+    {
+        infoGroup.SetActive(true);
+        infoGroupText.enabled = true;
+        infoGroupX.SetActive(true);
+        infoGroupNext.gameObject.SetActive(false);
+
+        storeBuyButton.gameObject.SetActive(false);
+
+        infoGroupText.text = "            " + name + " COMPLETED!\nReward: $" + reward + "\n" + description;
     }
 
     public void InfoPopUpGoalsQuestionMark()
@@ -873,5 +909,39 @@ public class SceneSystem : MonoBehaviour
         storeBuyButton.gameObject.SetActive(false);
 
         infoGroupText.text = "            Goals";
+    }
+
+    public void SaveData()
+    {
+        MyData data = new MyData();
+        data.myGame = doesGameExist;
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(filePath, json);
+    }
+
+    public void LoadData()
+    {
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            MyData data = JsonUtility.FromJson<MyData>(json);
+
+            if(data.myGame == true)
+            {
+                homeScreenGroup.SetActive(true);
+                homeScreenReturningButton.SetActive(true);
+                homeScreenStartButton.SetActive(false);
+            }
+        }
+    }
+
+    void ClearFile()
+    {
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("SystemData.json cleared.");
+        }
     }
 }

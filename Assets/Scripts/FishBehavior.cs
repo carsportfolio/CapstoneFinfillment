@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using System.Runtime.CompilerServices;
-using System.Net.NetworkInformation;
+using System.IO;
 
 //This script features basic fish behavior and allows them to be selected. I will be adding the ability to pull up specific fish information w/ a fish class
 
@@ -32,9 +30,35 @@ public class FishBehavior : MonoBehaviour
     [SerializeField] private GameObject fishGoalsPrefabHolder; // prefab of group of buttons and image to instantiate
     [SerializeField] private float fishSpacing = 30f; // spacing between buttons
     public string[] tagsToSearch = {"fishnameTAG", "fishgoalTAG"};
+    private string filePath;
+
+    [System.Serializable]
+    private class SerializableList<T>
+    {
+        public List<T> list;
+
+        public SerializableList(List<T> list)
+        {
+            this.list = list;
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        SaveData();
+    }
 
     void Start()
     {
+        filePath = Application.persistentDataPath + "/FishData.json";
+
+        if (File.Exists(filePath))
+        {
+            Debug.Log("FishData.json found. Loading data.");
+            LoadData();
+            //PopulateButtons(); where the fish spawn
+        }
+
         totalFishCount = 0; 
         rb = GetComponent<Rigidbody2D>();
 
@@ -160,7 +184,51 @@ public class FishBehavior : MonoBehaviour
         totalFishCount++; 
 
         InputBehavior.finishedFishList.Add(properties);
+        SaveData();
         properties = null;
+    }
+
+    public void CreationOfFishJSON(FishProperties fishInput)
+    {
+        Vector3 minBounds = new Vector3(20, 20, 1);
+        Vector3 maxBounds = new Vector3(150, 300, 1);
+        Vector3 randomPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), UnityEngine.Random.Range(minBounds.y, maxBounds.y), UnityEngine.Random.Range(minBounds.z, maxBounds.z));
+
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("parentfish"); // this helps us find it when it becomes "hidden" or deactivated
+
+        foreach (GameObject obj in objectsWithTag)
+        {
+            bool wasActive = obj.activeSelf;
+            obj.SetActive(true);
+
+            Debug.Log("parent is: " + obj.transform);
+            parent = obj;
+
+            if (!wasActive)
+            {
+                obj.SetActive(false);
+            }
+        }
+        Debug.Log("parent outside of the loop is " + parent);
+
+        GameObject instantiatedFish = Instantiate(fishInput.FishPrefab, randomPosition, Quaternion.identity, parent.transform); 
+        instantiatedFish.SetActive(false);
+
+        properties = instantiatedFish.GetComponent<FishProperties>();
+        if (properties == null)
+        {
+            properties = instantiatedFish.AddComponent<FishProperties>(); //add FishProperties if not found
+        }
+
+        properties.Name = fishInput.Name; 
+        properties.Goal = fishInput.Goal; 
+        properties.GoalType = fishInput.GoalType; 
+        properties.StreakTracked = fishInput.StreakTracked;
+        properties.TotalDaysTracked = fishInput.TotalDaysTracked;
+        properties.FishPrefab = fishInput.FishPrefab;
+        properties.Tracked = fishInput.Tracked;
+        properties.AchievementsType = fishInput.AchievementsType;
+        totalFishCount++; 
     }
 
     public GameObject FishVariableAssignment(int input)
@@ -371,6 +439,29 @@ public class FishBehavior : MonoBehaviour
         else
         {
             Debug.LogError("Invalid button index.");
+        }
+    }
+
+    public void SaveData()
+    {
+        string jsonString = JsonUtility.ToJson(new SerializableList<FishProperties>(InputBehavior.finishedFishList));
+        File.WriteAllText(filePath, jsonString);
+    }
+
+    public void LoadData()
+    {
+        string jsonString = File.ReadAllText(filePath);
+        SerializableList<FishProperties> data = JsonUtility.FromJson<SerializableList<FishProperties>>(jsonString);
+        InputBehavior.finishedFishList = data.list;
+        Debug.Log("Data loaded from " + filePath);
+    }
+
+    void ClearFile()
+    {
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("FishData.json cleared.");
         }
     }
 }
