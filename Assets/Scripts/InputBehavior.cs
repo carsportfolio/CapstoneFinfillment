@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.IO;
 using System.Collections.Generic;
 
 public class InputBehavior : MonoBehaviour
@@ -12,6 +13,7 @@ public class InputBehavior : MonoBehaviour
     public static List<string> goalsList = new List<string>();
     public static List<string> goalTypesList = new List<string>();
     public static List<FishProperties> finishedFishList = new List<FishProperties>();
+    //private string fileName = "FishData.json";
 
     void Start()
     {
@@ -19,14 +21,12 @@ public class InputBehavior : MonoBehaviour
         
         if (inputFields == null || inputFields.Length == 0) // make sure is not null
         {
-            Debug.LogError("no component assigned");
             enabled = false; //disable
             return;
         }
 
         if (outputTexts == null || outputTexts.Length == 0) //same for output
         {
-            Debug.LogError("No TextMeshPro components assigned!");
             enabled = false; //disable
             return;
         }

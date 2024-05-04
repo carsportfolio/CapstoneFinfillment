@@ -4,13 +4,25 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using System.Collections;
+
+// the achievement class holds all the code to do with handling achievements, which at the moment is not much since there isnt any interaction
 
 public class AchievementSelectionBehavior : MonoBehaviour
 {
     [System.Serializable]
     public class Achievement
     {
-        public string achievementName;
+        public enum AchievementCategoryWithin
+        {
+            Physical,
+            Mental,
+            Productivity
+        }
+
+        public string achievementName; 
+        public AchievementCategoryWithin achievementGroup;
+        public int achievementOutsideNumberHolder;
         public int reward;
         public string description;
         public Vector3 position;
@@ -18,13 +30,15 @@ public class AchievementSelectionBehavior : MonoBehaviour
 
         //can add an image reference
 
-        public Achievement(string name, int reward, string description, Vector3 positionVec3, Boolean completed)
+        public Achievement(string name, AchievementCategoryWithin group, int reward, string description, Vector3 positionVec3, Boolean completed, int number)
         {
+            this.achievementGroup = group;
             this.achievementName = name;
             this.reward = reward;
             this.description = description;
             this.position = positionVec3;
             this.isCompleted = completed;
+            this.achievementOutsideNumberHolder = number;
         }
     }
 
@@ -38,44 +52,56 @@ public class AchievementSelectionBehavior : MonoBehaviour
     {
         sceneFunctions = FindObjectOfType<SceneSystem>(); // better than just having an empty variable
 
-        // make your items
-        Achievement item1 = new Achievement("A1", 100, "Description of 1", new Vector3(-90, 90, 1), false);
+        Achievement item1 = new Achievement("P1", Achievement.AchievementCategoryWithin.Physical, 100, "Track a Physical related goal for the first time.", new Vector3(-90, 90, 1), true, 1);
         achievementList.Add(item1);
 
-        Achievement item2 = new Achievement("A2", 200, "Description of 2", new Vector3(0, 90, 1), false);
+        Achievement item2 = new Achievement("M1", Achievement.AchievementCategoryWithin.Mental, 100, "Track a Mental related goal for the first time.", new Vector3(0, 90, 1), true, 1);
         achievementList.Add(item2);
 
-        Achievement item3 = new Achievement("A3", 300, "Description of 3", new Vector3(90, 90, 1), false);
+        Achievement item3 = new Achievement("R1", Achievement.AchievementCategoryWithin.Productivity, 100, "Track a Productivity related goal for the first time.", new Vector3(90, 90, 1), false, 1);
         achievementList.Add(item3);
 
-        Achievement item4 = new Achievement("A4", 100, "Description of 4", new Vector3(-90, 30, 1), true);
+        //__________ row 2
+
+        Achievement item4 = new Achievement("P2", Achievement.AchievementCategoryWithin.Physical, 200, "Description of 4", new Vector3(-90, 30, 1), true, 2);
         achievementList.Add(item4);
 
-        Achievement item5 = new Achievement("A5", 200, "Description of 5", new Vector3(0, 30, 1), false);
+        Achievement item5 = new Achievement("M2", Achievement.AchievementCategoryWithin.Mental, 200, "Description of 5", new Vector3(0, 30, 1), true, 2);
         achievementList.Add(item5);
 
-        Achievement item6 = new Achievement("A6", 200, "Description of 6", new Vector3(90, 30, 1), false);
+        Achievement item6 = new Achievement("R2", Achievement.AchievementCategoryWithin.Productivity, 200, "Description of 6", new Vector3(90, 30, 1), false, 2);
         achievementList.Add(item6);
 
-        PopulateButtons();
+        //__________ row 3
+
+        Achievement item7 = new Achievement("P3", Achievement.AchievementCategoryWithin.Physical, 300, "Description of 7", new Vector3(-90, -30, 1), true, 3);
+        achievementList.Add(item7);
+
+        Achievement item8 = new Achievement("M3", Achievement.AchievementCategoryWithin.Mental, 300, "Description of 8", new Vector3(0, -30, 1), false, 3);
+        achievementList.Add(item8);
+
+        Achievement item9 = new Achievement("R3", Achievement.AchievementCategoryWithin.Productivity, 300, "Description of 9", new Vector3(90, -30, 1), false, 3);
+        achievementList.Add(item9);
+
+        //__________ row 4
+
+        Achievement item10 = new Achievement("P4", Achievement.AchievementCategoryWithin.Physical, 400, "Description of 10", new Vector3(-90, -90, 1), false, 4);
+        achievementList.Add(item10);
+
+        Achievement item11 = new Achievement("M4", Achievement.AchievementCategoryWithin.Mental, 400, "Description of 11", new Vector3(0, -90, 1), false, 4);
+        achievementList.Add(item11);
+
+        Achievement item12 = new Achievement("R4", Achievement.AchievementCategoryWithin.Productivity, 400, "Description of 12", new Vector3(90, -90, 1), false, 4);
+        achievementList.Add(item12);
+
+        PopulateButtonsAchievement();
     }
 
-    void Update()
-    {
-        for(int i = 0; i < achievementList.Count; i++)
-        {
-            if (achievementList[i].isCompleted)
-            {
-                achievementList.RemoveAt(i);
-            }
-        }
-    }
-
-    void PopulateButtons()
+    void PopulateButtonsAchievement()
     {
         if (groupGameObject == null)
         {
-            Debug.LogError("Group GameObject reference is not set.");
+            Debug.LogError("group gameobject reference in achievement is not set");
             return;
         }
 
@@ -88,17 +114,70 @@ public class AchievementSelectionBehavior : MonoBehaviour
         for (int i = 0; i < achievementList.Count; i++)
         {
             Achievement achievement = achievementList[i];
-            GameObject buttonItem = Instantiate(buttonPrefab, groupGameObject.transform);
-            buttonItem.transform.localPosition = achievement.position;
+            string achievementNameHolder = achievement.achievementOutsideNumberHolder.ToString();
+            Color achievementColorHolder = Color.white;
 
-            TextMeshProUGUI buttonText = buttonItem.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = "A" + (i + 1);
-
-            Button buttonComponent = buttonItem.GetComponent<Button>();
-            if (buttonComponent != null) //shouldnt be
+            switch(achievement.achievementGroup)
             {
-                int buttonIndex = i; //current index that has been triggered
-                buttonComponent.onClick.AddListener(() => OnButtonClick(buttonIndex));
+                case Achievement.AchievementCategoryWithin.Physical:
+                    achievementColorHolder = Color.red;
+                break;
+                case Achievement.AchievementCategoryWithin.Productivity:
+                    achievementColorHolder = Color.yellow;
+                break;
+                case Achievement.AchievementCategoryWithin.Mental:
+                    achievementColorHolder = Color.blue;
+                break;
+            }
+
+            if (achievement.isCompleted)
+            {
+                GameObject buttonItem = Instantiate(buttonPrefab, groupGameObject.transform);
+                Image buttonRender = buttonItem.GetComponent<Image>();
+                buttonItem.transform.localPosition = achievement.position;
+
+                TextMeshProUGUI buttonText = buttonItem.GetComponentInChildren<TextMeshProUGUI>();
+                buttonText.text = "C" + (i + 1);
+
+                if (buttonItem.CompareTag("buttontint"))
+                {
+                    if (buttonRender.material != null)
+                    {
+                        buttonRender.material = new Material(buttonRender.material);
+                        buttonRender.material.color = Color.green;
+                    }
+                    
+                    Button buttonComponent = buttonItem.GetComponent<Button>();
+                    if (buttonComponent != null) //shouldnt be
+                    {
+                        int buttonIndex = i; //current index that has been triggered
+                        buttonComponent.onClick.AddListener(() => OnButtonClickCompleted(buttonIndex));
+                    }
+
+                    continue;
+                }
+            }
+            else
+            {
+                GameObject buttonItem = Instantiate(buttonPrefab, groupGameObject.transform);
+                Image buttonRender = buttonItem.GetComponent<Image>();
+                buttonItem.transform.localPosition = achievement.position;
+
+                TextMeshProUGUI buttonText = buttonItem.GetComponentInChildren<TextMeshProUGUI>();
+                buttonText.text = achievementNameHolder;
+
+                if (buttonRender.material != null)
+                {
+                    buttonRender.material = new Material(buttonRender.material);
+                    buttonRender.material.color = achievementColorHolder;
+                }
+
+                Button buttonComponent = buttonItem.GetComponent<Button>();
+                if (buttonComponent != null) //shouldnt be
+                {
+                    int buttonIndex = i; //current index that has been triggered
+                    buttonComponent.onClick.AddListener(() => OnButtonClick(buttonIndex));
+                }
             }
         }
 
@@ -112,7 +191,27 @@ public class AchievementSelectionBehavior : MonoBehaviour
             Achievement selectedItem = achievementList[buttonIndex];
             if (sceneFunctions != null)
             {
-                sceneFunctions.InfoPopUpAchievementButton(selectedItem, selectedItem.achievementName, selectedItem.reward, selectedItem.description);
+                sceneFunctions.InfoPopUpAchievementButton(selectedItem, selectedItem.achievementName, selectedItem.reward, selectedItem.description, selectedItem.achievementGroup);
+            }
+            else
+            {
+                Debug.LogError("SceneSystem reference is not set.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid button index.");
+        }
+    }
+
+    void OnButtonClickCompleted(int buttonIndex)
+    {
+        if (buttonIndex >= 0 && buttonIndex < achievementList.Count)
+        {
+            Achievement selectedItem = achievementList[buttonIndex];
+            if (sceneFunctions != null)
+            {
+                sceneFunctions.InfoPopUpAchievementButtonCompleted(selectedItem, selectedItem.achievementName, selectedItem.reward, selectedItem.description);
             }
             else
             {

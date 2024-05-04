@@ -15,6 +15,7 @@ TagManager:
   - parentstore
   - fishprefabparent
   - parentgoals
+  - buttontint
   layers:
   - Default
   - TransparentFX
